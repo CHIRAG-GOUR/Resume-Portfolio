@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chirag Gour - Premium Resume</title>
+    <title>Chirag Gour - Professional Resume</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Export Libraries -->
@@ -110,6 +110,7 @@
         .contact-info { list-style: none; font-size: 0.85rem; margin-bottom: 20px; }
         .contact-info li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
         .contact-info a { color: inherit; text-decoration: none; }
+        .contact-icon { width: 14px; height: 14px; fill: currentColor; }
 
         .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
         .skill-item { font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); }
@@ -124,7 +125,8 @@
         li { margin-bottom: 3px; }
 
         .interest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 500; font-size: 0.85rem; }
-        .interest-icon { width: 28px; height: 28px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+        .interest-icon-box { width: 28px; height: 28px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; border-radius: 6px; color: var(--secondary-color); }
+        .interest-svg { width: 16px; height: 16px; fill: currentColor; }
 
         @media print {
             .toolbar { display: none !important; }
@@ -138,7 +140,7 @@
 
     <div class="toolbar">
         <div class="select-wrapper">
-            <label>Layout:</label>
+            <label>Layout Style:</label>
             <select id="layout-select" onchange="changeLayout(this.value)">
                 <option value="default">1. Modern Sidebar (Default)</option>
                 <option value="executive">2. Executive Header</option>
@@ -172,11 +174,26 @@
                 </div>
 
                 <ul class="contact-info">
-                    <li>📧 <a href="mailto:gourchirag101@gmail.com">gourchirag101@gmail.com</a></li>
-                    <li>📱 +91-7877679101</li>
-                    <li>🔗 <a href="https://linkedin.com/in/chirag-gour-101cg">linkedin.com/in/chirag-gour</a></li>
-                    <li>🌐 <a href="https://vercel.com/chirags-projects-f5b12cf2">Portfolio</a></li>
-                    <li>📍 Rajasthan, India</li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <a href="mailto:gourchirag101@gmail.com">gourchirag101@gmail.com</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.4-1.2-.6-2.4-.6-3.6 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+                        +91-7877679101
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <a href="https://linkedin.com/in/chirag-gour-101cg">linkedin.com/in/chirag-gour</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>
+                        <a href="https://vercel.com/chirags-projects-f5b12cf2">Portfolio</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Rajasthan, India
+                    </li>
                 </ul>
 
                 <section class="skills-box">
@@ -222,10 +239,22 @@
 
                 <section class="interests-box">
                     <div class="section-title">Interests</div>
-                    <div class="interest-item"><div class="interest-icon">💪</div> Gym / Fitness</div>
-                    <div class="interest-item"><div class="interest-icon">🏏</div> Cricket</div>
-                    <div class="interest-item"><div class="interest-icon">🥊</div> Boxing / MMA</div>
-                    <div class="interest-item"><div class="interest-icon">🚀</div> Tech Innovation</div>
+                    <div class="interest-item">
+                        <div class="interest-icon-box"><svg class="interest-svg" viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43-1.43-1.43-1.43-1.43z"/></svg></div> 
+                        Gym / Fitness
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon-box"><svg class="interest-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div> 
+                        Cricket
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon-box"><svg class="interest-svg" viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/></svg></div> 
+                        Boxing / MMA
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon-box"><svg class="interest-svg" viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg></div> 
+                        Tech Innovation
+                    </div>
                 </section>
             </div>
 
@@ -303,8 +332,8 @@
 
                 <section class="achievements-box">
                     <div class="section-title">Certifications</div>
-                    <div class="interest-item" style="margin-bottom: 4px;">🏆 Generative AI Mastermind (OutSkill)</div>
-                    <div class="interest-item">📜 Web Development Bootcamp (Udemy)</div>
+                    <div class="interest-item" style="margin-bottom: 4px; font-weight: 600;">Generative AI Mastermind (OutSkill)</div>
+                    <div class="interest-item" style="font-weight: 600;">Web Development Bootcamp (Udemy)</div>
                 </section>
             </div>
         </div>
