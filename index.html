@@ -146,6 +146,27 @@
         [data-layout="serif"] .name { font-size: 4rem; font-weight: 900; }
         [data-layout="serif"] .section-title { border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 10px 0; }
 
+        /* 11. ORIGINAL (Initial Version Style) */
+        [data-layout="original"] { --secondary: #2563eb; --primary: #000000; --text: #333333; --line: #d1d5db; --font-main: 'Inter', sans-serif; }
+        [data-layout="original"] #resume-content { display: block; max-width: 800px; margin: 0 auto; padding: 40px; }
+        [data-layout="original"] .header-section { text-align: left; border: none; padding: 0; margin-bottom: 20px; }
+        [data-layout="original"] .name { font-size: 2.5rem; color: var(--primary); }
+        [data-layout="original"] .section-title { 
+            color: var(--secondary); font-size: 1.25rem; font-weight: 600; text-transform: none; letter-spacing: normal;
+            border-bottom: 2px solid var(--secondary); padding-bottom: 5px; margin-top: 25px; margin-bottom: 15px;
+        }
+        [data-layout="original"] .section-title::after { display: none; }
+        [data-layout="original"] .main-grid { display: block; }
+        [data-layout="original"] .contact-list { gap: 20px; margin: 10px 0; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
+        [data-layout="original"] .contact-icon { fill: var(--secondary); }
+        [data-layout="original"] .job-card { border: none; padding: 0; margin-bottom: 20px; }
+        [data-layout="original"] .job-name { color: var(--primary); font-size: 1.1rem; }
+        [data-layout="original"] .job-comp { color: var(--text); font-weight: 700; }
+        [data-layout="original"] .skill-tag { border: none; background: none; padding: 0; font-size: 0.85rem; font-weight: 500; }
+        [data-layout="original"] .skill-tag::after { content: '•'; margin: 0 8px; color: var(--line); }
+        [data-layout="original"] .skill-tag:last-child::after { content: ''; }
+        [data-layout="original"] .profile-img { display: none !important; }
+
         @media print {
             .toolbar { display: none !important; }
             .resume-wrapper { margin: 0; box-shadow: none; width: 210mm; }
@@ -161,15 +182,16 @@
             <label>Current Layout:</label>
             <select id="layout-select" onchange="changeLayout(this.value)">
                 <option value="default">1. Modern Sidebar (Default)</option>
-                <option value="executive">2. Executive Portfolio</option>
-                <option value="bento">3. Interactive Bento Grid</option>
-                <option value="split">4. Visual Split Screen</option>
-                <option value="tech">5. Developer Console</option>
-                <option value="creative">6. Bold Creative</option>
-                <option value="minimal">7. Minimalist Pure</option>
-                <option value="timeline">8. Career Timeline</option>
-                <option value="dark">9. Premium Dark Mode</option>
-                <option value="serif">10. Classic Serif</option>
+                <option value="original">2. Original Style</option>
+                <option value="executive">3. Executive Portfolio</option>
+                <option value="bento">4. Interactive Bento Grid</option>
+                <option value="split">5. Visual Split Screen</option>
+                <option value="tech">6. Developer Console</option>
+                <option value="creative">7. Bold Creative</option>
+                <option value="minimal">8. Minimalist Pure</option>
+                <option value="timeline">9. Career Timeline</option>
+                <option value="dark">10. Premium Dark Mode</option>
+                <option value="serif">11. Classic Serif</option>
             </select>
         </div>
         
