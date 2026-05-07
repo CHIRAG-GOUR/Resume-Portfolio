@@ -27,66 +27,54 @@
         }
 
         /* --- LAYOUT VARIATIONS --- */
-        
-        /* 1. Default (Sidebar Left) - No extra CSS needed as it's base */
-        
-        /* 2. Executive (Top Header) */
         [data-layout="executive"] #resume-content { flex-direction: column; }
         [data-layout="executive"] .left-col { flex: 0 0 100%; border-bottom: 2px solid var(--line-color); padding-bottom: 20px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; }
         [data-layout="executive"] .name-group { grid-column: span 2; }
         [data-layout="executive"] .right-col { flex: 0 0 100%; padding-left: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         
-        /* 3. Minimalist (Single Column) */
-        [data-layout="minimalist"] #resume-content { flex-direction: column; max-width: 700px; margin: 0 auto; }
+        [data-layout="minimalist"] #resume-content { flex-direction: column; max-width: 750px; margin: 0 auto; }
         [data-layout="minimalist"] .left-col, [data-layout="minimalist"] .right-col { flex: 0 0 100%; padding: 0; }
         [data-layout="minimalist"] .name { text-align: center; font-size: 3rem; }
         [data-layout="minimalist"] .job-title { text-align: center; }
         [data-layout="minimalist"] .contact-info { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; border-bottom: 1px solid var(--line-color); padding-bottom: 20px; }
 
-        /* 4. Reverse (Sidebar Right) */
         [data-layout="reverse"] #resume-content { flex-direction: row-reverse; }
         [data-layout="reverse"] .left-col { padding-right: 0; padding-left: 1.5rem; border-left: 1px solid var(--line-color); }
         [data-layout="reverse"] .right-col { padding-left: 0; padding-right: 1.5rem; }
 
-        /* 5. Bento Grid (Modern Blocks) */
-        [data-layout="bento"] #resume-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; background: #f1f5f9; padding: 20px; }
+        [data-layout="bento"] #resume-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; background: #f1f5f9; padding: 15px; }
         [data-layout="bento"] .left-col, [data-layout="bento"] .right-col { display: contents; }
         [data-layout="bento"] section, [data-layout="bento"] .name-group, [data-layout="bento"] .contact-info { 
-            background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); 
+            background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); 
         }
         [data-layout="bento"] .name-group { grid-column: span 2; }
         [data-layout="bento"] .contact-info { grid-column: span 1; }
         [data-layout="bento"] .summary-box { grid-column: span 3; }
         [data-layout="bento"] .experience-box { grid-column: span 2; }
-        [data-layout="bento"] .skills-box { grid-column: span 1; }
+        [data-layout="bento"] .skills-box, [data-layout="bento"] .edu-box, [data-layout="bento"] .interests-box { grid-column: span 1; }
 
-        /* 6. Dark Mode */
         [data-theme="dark"] {
             --bg-color: #0f172a; --text-color: #f1f5f9; --primary-color: #ffffff;
             --secondary-color: #38bdf8; --heading-color: #94a3b8; --line-color: #1e293b; --accent-bg: #1e293b;
         }
         [data-theme="dark"] body { background-color: #020617; }
 
-        /* 7. Classic Serif (Elegant) */
         [data-layout="serif"] { --font-heading: 'Playfair Display', serif; --secondary-color: #1e293b; }
         [data-layout="serif"] .section-title { border-bottom: 2px solid #000; letter-spacing: 4px; }
 
-        /* 8. Technical (Dev Focused) */
         [data-layout="tech"] { --font-main: 'Fira Code', monospace; --secondary-color: #10b981; }
         [data-layout="tech"] .skill-item { background: #10b98120; padding: 2px 8px; border: none; border-radius: 4px; }
 
-        /* 9. Timeline (Visual) */
         [data-layout="timeline"] .job-block { border-left: 2px solid var(--secondary-color); padding-left: 20px; position: relative; }
         [data-layout="timeline"] .job-block::before { content: ""; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: var(--secondary-color); border-radius: 50%; }
 
-        /* 10. Compact (Dense) */
         [data-layout="compact"] #resume-content { padding: 20px; gap: 15px; }
         [data-layout="compact"] .section-title { margin-top: 0.5rem; margin-bottom: 0.5rem; }
         [data-layout="compact"] .job-block { margin-bottom: 0.8rem; }
 
         /* --- BASE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-main); background-color: #f3f4f6; color: var(--text-color); line-height: 1.5; transition: all 0.3s ease; }
+        body { font-family: var(--font-main); background-color: #f3f4f6; color: var(--text-color); line-height: 1.4; transition: all 0.3s ease; }
         
         .toolbar { 
             position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.8); 
@@ -112,31 +100,31 @@
         #resume-content { display: flex; padding: var(--page-padding); gap: 40px; min-height: 1100px; }
         
         .name { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
-        .job-title { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+        .job-title { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
         
         .section-title { 
             font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; 
-            color: var(--heading-color); border-bottom: 2px solid var(--line-color); padding-bottom: 5px; margin-bottom: 15px; margin-top: 25px;
+            color: var(--heading-color); border-bottom: 2px solid var(--line-color); padding-bottom: 5px; margin-bottom: 12px; margin-top: 20px;
         }
 
         .contact-info { list-style: none; font-size: 0.85rem; margin-bottom: 20px; }
         .contact-info li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
         .contact-info a { color: inherit; text-decoration: none; }
 
-        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
         .skill-item { font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); }
 
-        .job-block, .project-block { margin-bottom: 20px; }
-        .job-role, .project-name { font-weight: 700; font-size: 1.05rem; color: var(--primary-color); }
+        .job-block, .project-block { margin-bottom: 18px; }
+        .job-role, .project-name { font-weight: 700; font-size: 1rem; color: var(--primary-color); }
         .company-header { display: flex; justify-content: space-between; align-items: baseline; }
-        .company-name { color: var(--secondary-color); font-weight: 600; font-size: 0.95rem; }
+        .company-name { color: var(--secondary-color); font-weight: 600; font-size: 0.9rem; }
         .date { font-size: 0.75rem; color: var(--heading-color); font-weight: 500; }
 
         ul { padding-left: 1.2rem; font-size: 0.85rem; color: var(--text-color); }
-        li { margin-bottom: 4px; }
+        li { margin-bottom: 3px; }
 
-        .interest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 500; }
-        .interest-icon { width: 30px; height: 30px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+        .interest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 500; font-size: 0.85rem; }
+        .interest-icon { width: 28px; height: 28px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; border-radius: 6px; }
 
         @media print {
             .toolbar { display: none !important; }
@@ -194,13 +182,41 @@
                 <section class="skills-box">
                     <div class="section-title">Skills</div>
                     <div class="skills-container">
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">PYTHON</span>
+                        <span class="skill-item">Bootstrap</span>
+                        <span class="skill-item">OOP Concepts</span>
+                        <span class="skill-item">SQL</span>
                         <span class="skill-item">React.js</span>
                         <span class="skill-item">Next.js</span>
                         <span class="skill-item">Node.js</span>
-                        <span class="skill-item">PostgreSQL</span>
                         <span class="skill-item">Three.js</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">AI Assisted Dev</span>
+                    </div>
+                </section>
+
+                <section class="projects-box">
+                    <div class="section-title">Projects</div>
+                    <div class="project-block">
+                        <div class="project-name">AR Gesture Control</div>
+                        <div class="date">2024</div>
+                        <ul>
+                            <li>Real-time hand gesture tracking AR interface using MediaPipe and Three.js.</li>
+                        </ul>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-name">Chronos Scheduler</div>
+                        <div class="date">2024</div>
+                        <ul>
+                            <li>Automated time-table generator with complex relational constraints.</li>
+                        </ul>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-name">Student Record System</div>
+                        <div class="date">12/2022 - 01/2023</div>
+                        <ul>
+                            <li>Web-based application for tracking student academic information.</li>
+                        </ul>
                     </div>
                 </section>
 
@@ -208,6 +224,7 @@
                     <div class="section-title">Interests</div>
                     <div class="interest-item"><div class="interest-icon">💪</div> Gym / Fitness</div>
                     <div class="interest-item"><div class="interest-icon">🏏</div> Cricket</div>
+                    <div class="interest-item"><div class="interest-icon">🥊</div> Boxing / MMA</div>
                     <div class="interest-item"><div class="interest-icon">🚀</div> Tech Innovation</div>
                 </section>
             </div>
@@ -216,60 +233,79 @@
             <div class="right-col">
                 <section class="summary-box">
                     <div class="section-title">Summary</div>
-                    <p class="summary-text">
-                        Innovative Computer Science Engineer specializing in full-stack web development and Ed-Tech product engineering. Expert at leveraging AI coding assistants to build high-performance, mobile-responsive applications. Strong background in React.js, Node.js, and cloud-native database management.
+                    <p class="summary-text" style="font-size: 0.85rem; text-align: justify;">
+                        I am a motivated and detail-oriented Computer Science student with a solid foundation in web development and a growing interest in Python programming. I have developed skills in HTML5, CSS, JavaScript, SQL, and modern web development frameworks. My strong problem-solving abilities and effective collaboration in team settings demonstrate my commitment to delivering clean, scalable solutions.
                     </p>
                 </section>
 
                 <section class="experience-box">
                     <div class="section-title">Experience</div>
+                    
                     <div class="job-block">
                         <div class="company-header">
                             <div class="job-role">Product Associate</div>
-                            <div class="date">2025 - Present</div>
+                            <div class="date">Sep 23, 2025 - Present</div>
                         </div>
                         <div class="company-name">Skillizee</div>
                         <ul>
                             <li>Spearheaded development of responsive Ed-Tech portals on Vercel.</li>
                             <li>Built immersive 3D environments using React Three Fiber.</li>
+                            <li>Optimized internal workflows using AI agent systems.</li>
                         </ul>
                     </div>
 
                     <div class="job-block">
                         <div class="company-header">
-                            <div class="job-role">Full-Stack Intern</div>
-                            <div class="date">2024</div>
+                            <div class="job-role">Intern</div>
+                            <div class="date">07/2024 - 08/2024</div>
                         </div>
-                        <div class="company-name">Birla White (Aditya Birla Group)</div>
+                        <div class="company-name">Birla White, Ultratech Cement Ltd. (Aditya Birla Group)</div>
                         <ul>
-                            <li>UI/UX optimization for internal enterprise portals.</li>
-                            <li>Database maintenance and technical documentation.</li>
+                            <li>Gained hands-on experience in Full-Stack web development.</li>
+                            <li>Contributed to redesign & optimisation of the company's website.</li>
+                            <li>Assisted in maintaining & updating databases to ensure data integrity.</li>
+                            <li>Participated in on-field work at the Birla White industrial plant.</li>
+                            <li>Collaborated with cross-functional teams to execute project deliverables.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job-block">
+                        <div class="company-header">
+                            <div class="job-role">Intern</div>
+                            <div class="date">11/2023 - 01/2024</div>
+                        </div>
+                        <div class="company-name">Bharat Sanchar Nigam Limited (BSNL)</div>
+                        <ul>
+                            <li>Telecommunications Experience at one of India's largest communication service providers.</li>
+                            <li>Learned from experience in the telecommunications industry.</li>
+                            <li>Connected with professionals and learned from experienced engineers, managers, and technicians.</li>
                         </ul>
                     </div>
                 </section>
 
-                <section class="education-box">
+                <section class="edu-box">
                     <div class="section-title">Education</div>
                     <div class="edu-block">
-                        <div class="edu-degree">B.Tech. Computer Science</div>
+                        <div class="edu-degree">B.Tech. Computer Science Engineering</div>
                         <div class="edu-details">
-                            <div class="edu-school">MLSU, Udaipur</div>
-                            <div class="date">2021 - 2025</div>
+                            <div class="edu-school">Mohanlal Sukhadia University</div>
+                            <div class="date">2021 - 2025 | Udaipur</div>
+                        </div>
+                    </div>
+                    <div class="edu-block">
+                        <div class="edu-degree">Senior Secondary Certification</div>
+                        <div class="edu-details">
+                            <div class="edu-school">Lal Bahadur Shastri School</div>
+                            <div class="date">Completed 2020</div>
                         </div>
                     </div>
                 </section>
 
-                <section class="projects-box">
-                    <div class="section-title">Key Projects</div>
-                    <div class="project-block">
-                        <div class="project-name">Chronos Scheduler</div>
-                        <div class="project-tech">React, Node, PostgreSQL</div>
-                        <ul>
-                            <li>Automated time-table generation system.</li>
-                            <li>Solved complex relational scheduling constraints.</li>
-                        </ul>
-                    </div>
-                </div>
+                <section class="achievements-box">
+                    <div class="section-title">Certifications</div>
+                    <div class="interest-item" style="margin-bottom: 4px;">🏆 Generative AI Mastermind (OutSkill)</div>
+                    <div class="interest-item">📜 Web Development Bootcamp (Udemy)</div>
+                </section>
             </div>
         </div>
     </div>
@@ -280,7 +316,6 @@
             body.setAttribute('data-layout', val);
             body.setAttribute('data-theme', val === 'dark' ? 'dark' : 'light');
             
-            // Special handling for bento grid theme
             if(val === 'bento') {
                 body.setAttribute('data-theme', 'light');
             }
