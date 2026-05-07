@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirag Gour - Premium Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #2563eb;
+            --text-color: #333333;
+            --heading-color: #64748b;
+            --line-color: #e2e8f0;
+            --bg-color: #ffffff;
+            --accent-bg: #f8fafc;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Inter', sans-serif;
+            --sidebar-width: 35%;
+            --page-padding: 40px;
+        }
+
+        /* --- LAYOUT VARIATIONS --- */
+        
+        /* 1. Default (Sidebar Left) - No extra CSS needed as it's base */
+        
+        /* 2. Executive (Top Header) */
+        [data-layout="executive"] #resume-content { flex-direction: column; }
+        [data-layout="executive"] .left-col { flex: 0 0 100%; border-bottom: 2px solid var(--line-color); padding-bottom: 20px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; }
+        [data-layout="executive"] .name-group { grid-column: span 2; }
+        [data-layout="executive"] .right-col { flex: 0 0 100%; padding-left: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        
+        /* 3. Minimalist (Single Column) */
+        [data-layout="minimalist"] #resume-content { flex-direction: column; max-width: 700px; margin: 0 auto; }
+        [data-layout="minimalist"] .left-col, [data-layout="minimalist"] .right-col { flex: 0 0 100%; padding: 0; }
+        [data-layout="minimalist"] .name { text-align: center; font-size: 3rem; }
+        [data-layout="minimalist"] .job-title { text-align: center; }
+        [data-layout="minimalist"] .contact-info { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; border-bottom: 1px solid var(--line-color); padding-bottom: 20px; }
+
+        /* 4. Reverse (Sidebar Right) */
+        [data-layout="reverse"] #resume-content { flex-direction: row-reverse; }
+        [data-layout="reverse"] .left-col { padding-right: 0; padding-left: 1.5rem; border-left: 1px solid var(--line-color); }
+        [data-layout="reverse"] .right-col { padding-left: 0; padding-right: 1.5rem; }
+
+        /* 5. Bento Grid (Modern Blocks) */
+        [data-layout="bento"] #resume-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; background: #f1f5f9; padding: 20px; }
+        [data-layout="bento"] .left-col, [data-layout="bento"] .right-col { display: contents; }
+        [data-layout="bento"] section, [data-layout="bento"] .name-group, [data-layout="bento"] .contact-info { 
+            background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); 
+        }
+        [data-layout="bento"] .name-group { grid-column: span 2; }
+        [data-layout="bento"] .contact-info { grid-column: span 1; }
+        [data-layout="bento"] .summary-box { grid-column: span 3; }
+        [data-layout="bento"] .experience-box { grid-column: span 2; }
+        [data-layout="bento"] .skills-box { grid-column: span 1; }
+
+        /* 6. Dark Mode */
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --text-color: #f1f5f9; --primary-color: #ffffff;
+            --secondary-color: #38bdf8; --heading-color: #94a3b8; --line-color: #1e293b; --accent-bg: #1e293b;
+        }
+        [data-theme="dark"] body { background-color: #020617; }
+
+        /* 7. Classic Serif (Elegant) */
+        [data-layout="serif"] { --font-heading: 'Playfair Display', serif; --secondary-color: #1e293b; }
+        [data-layout="serif"] .section-title { border-bottom: 2px solid #000; letter-spacing: 4px; }
+
+        /* 8. Technical (Dev Focused) */
+        [data-layout="tech"] { --font-main: 'Fira Code', monospace; --secondary-color: #10b981; }
+        [data-layout="tech"] .skill-item { background: #10b98120; padding: 2px 8px; border: none; border-radius: 4px; }
+
+        /* 9. Timeline (Visual) */
+        [data-layout="timeline"] .job-block { border-left: 2px solid var(--secondary-color); padding-left: 20px; position: relative; }
+        [data-layout="timeline"] .job-block::before { content: ""; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: var(--secondary-color); border-radius: 50%; }
+
+        /* 10. Compact (Dense) */
+        [data-layout="compact"] #resume-content { padding: 20px; gap: 15px; }
+        [data-layout="compact"] .section-title { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+        [data-layout="compact"] .job-block { margin-bottom: 0.8rem; }
+
+        /* --- BASE STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-main); background-color: #f3f4f6; color: var(--text-color); line-height: 1.5; transition: all 0.3s ease; }
+        
+        .toolbar { 
+            position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); padding: 12px;
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+        }
+
+        .select-wrapper { display: flex; align-items: center; gap: 8px; background: #fff; padding: 4px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        select { border: none; font-weight: 600; color: #1e293b; outline: none; cursor: pointer; }
+
+        .btn { 
+            background: var(--secondary-color); color: #fff; border: none; padding: 8px 16px; 
+            border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px;
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn.secondary { background: #64748b; }
+
+        .resume-wrapper { 
+            max-width: 950px; margin: 30px auto; background: var(--bg-color); 
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.1); border-radius: 8px; overflow: hidden;
+        }
+
+        #resume-content { display: flex; padding: var(--page-padding); gap: 40px; min-height: 1100px; }
+        
+        .name { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
+        .job-title { color: var(--secondary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+        
+        .section-title { 
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; 
+            color: var(--heading-color); border-bottom: 2px solid var(--line-color); padding-bottom: 5px; margin-bottom: 15px; margin-top: 25px;
+        }
+
+        .contact-info { list-style: none; font-size: 0.85rem; margin-bottom: 20px; }
+        .contact-info li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .contact-info a { color: inherit; text-decoration: none; }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-item { font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); }
+
+        .job-block, .project-block { margin-bottom: 20px; }
+        .job-role, .project-name { font-weight: 700; font-size: 1.05rem; color: var(--primary-color); }
+        .company-header { display: flex; justify-content: space-between; align-items: baseline; }
+        .company-name { color: var(--secondary-color); font-weight: 600; font-size: 0.95rem; }
+        .date { font-size: 0.75rem; color: var(--heading-color); font-weight: 500; }
+
+        ul { padding-left: 1.2rem; font-size: 0.85rem; color: var(--text-color); }
+        li { margin-bottom: 4px; }
+
+        .interest-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 500; }
+        .interest-icon { width: 30px; height: 30px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+
+        @media print {
+            .toolbar { display: none !important; }
+            .resume-wrapper { margin: 0; box-shadow: none; max-width: 100%; width: 100%; }
+            body { background: #fff !important; }
+        }
+    </style>
+</head>
+
+<body data-layout="default" data-theme="light">
+
+    <div class="toolbar">
+        <div class="select-wrapper">
+            <label>Layout:</label>
+            <select id="layout-select" onchange="changeLayout(this.value)">
+                <option value="default">1. Modern Sidebar (Default)</option>
+                <option value="executive">2. Executive Header</option>
+                <option value="minimalist">3. Minimalist Center</option>
+                <option value="reverse">4. Reverse Sidebar</option>
+                <option value="bento">5. Bento Grid Blocks</option>
+                <option value="serif">6. Elegant Serif</option>
+                <option value="tech">7. Technical Console</option>
+                <option value="timeline">8. Visual Timeline</option>
+                <option value="compact">9. High Density</option>
+                <option value="dark">10. Dark Professional</option>
+            </select>
+        </div>
+        
+        <button class="btn secondary" onclick="shuffleLayout()">Shuffle ✨</button>
+        
+        <div style="flex-grow: 1;"></div>
+
+        <button class="btn" onclick="downloadPDF()">Download PDF</button>
+        <button class="btn secondary" onclick="downloadImage()">Save Image</button>
+    </div>
+
+    <div class="resume-wrapper">
+        <div id="resume-content">
+            
+            <!-- LEFT / SIDEBAR COLUMN -->
+            <div class="left-col">
+                <div class="name-group">
+                    <h1 class="name">CHIRAG GOUR</h1>
+                    <div class="job-title">Full-Stack Product Engineer</div>
+                </div>
+
+                <ul class="contact-info">
+                    <li>📧 <a href="mailto:gourchirag101@gmail.com">gourchirag101@gmail.com</a></li>
+                    <li>📱 +91-7877679101</li>
+                    <li>🔗 <a href="https://linkedin.com/in/chirag-gour-101cg">linkedin.com/in/chirag-gour</a></li>
+                    <li>🌐 <a href="https://vercel.com/chirags-projects-f5b12cf2">Portfolio</a></li>
+                    <li>📍 Rajasthan, India</li>
+                </ul>
+
+                <section class="skills-box">
+                    <div class="section-title">Skills</div>
+                    <div class="skills-container">
+                        <span class="skill-item">React.js</span>
+                        <span class="skill-item">Next.js</span>
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">Three.js</span>
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">AI Assisted Dev</span>
+                    </div>
+                </section>
+
+                <section class="interests-box">
+                    <div class="section-title">Interests</div>
+                    <div class="interest-item"><div class="interest-icon">💪</div> Gym / Fitness</div>
+                    <div class="interest-item"><div class="interest-icon">🏏</div> Cricket</div>
+                    <div class="interest-item"><div class="interest-icon">🚀</div> Tech Innovation</div>
+                </section>
+            </div>
+
+            <!-- RIGHT / MAIN COLUMN -->
+            <div class="right-col">
+                <section class="summary-box">
+                    <div class="section-title">Summary</div>
+                    <p class="summary-text">
+                        Innovative Computer Science Engineer specializing in full-stack web development and Ed-Tech product engineering. Expert at leveraging AI coding assistants to build high-performance, mobile-responsive applications. Strong background in React.js, Node.js, and cloud-native database management.
+                    </p>
+                </section>
+
+                <section class="experience-box">
+                    <div class="section-title">Experience</div>
+                    <div class="job-block">
+                        <div class="company-header">
+                            <div class="job-role">Product Associate</div>
+                            <div class="date">2025 - Present</div>
+                        </div>
+                        <div class="company-name">Skillizee</div>
+                        <ul>
+                            <li>Spearheaded development of responsive Ed-Tech portals on Vercel.</li>
+                            <li>Built immersive 3D environments using React Three Fiber.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job-block">
+                        <div class="company-header">
+                            <div class="job-role">Full-Stack Intern</div>
+                            <div class="date">2024</div>
+                        </div>
+                        <div class="company-name">Birla White (Aditya Birla Group)</div>
+                        <ul>
+                            <li>UI/UX optimization for internal enterprise portals.</li>
+                            <li>Database maintenance and technical documentation.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="education-box">
+                    <div class="section-title">Education</div>
+                    <div class="edu-block">
+                        <div class="edu-degree">B.Tech. Computer Science</div>
+                        <div class="edu-details">
+                            <div class="edu-school">MLSU, Udaipur</div>
+                            <div class="date">2021 - 2025</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="projects-box">
+                    <div class="section-title">Key Projects</div>
+                    <div class="project-block">
+                        <div class="project-name">Chronos Scheduler</div>
+                        <div class="project-tech">React, Node, PostgreSQL</div>
+                        <ul>
+                            <li>Automated time-table generation system.</li>
+                            <li>Solved complex relational scheduling constraints.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeLayout(val) {
+            const body = document.body;
+            body.setAttribute('data-layout', val);
+            body.setAttribute('data-theme', val === 'dark' ? 'dark' : 'light');
+            
+            // Special handling for bento grid theme
+            if(val === 'bento') {
+                body.setAttribute('data-theme', 'light');
+            }
+        }
+
+        function shuffleLayout() {
+            const select = document.getElementById('layout-select');
+            const options = select.options;
+            const randomIndex = Math.floor(Math.random() * options.length);
+            select.selectedIndex = randomIndex;
+            changeLayout(options[randomIndex].value);
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('resume-content');
+            const opt = {
+                margin: 0,
+                filename: 'Chirag_Gour_Resume.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { scale: 4, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function downloadImage() {
+            const element = document.getElementById('resume-content');
+            html2canvas(element, { scale: 4, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Chirag_Gour_Resume.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+
+</html>
